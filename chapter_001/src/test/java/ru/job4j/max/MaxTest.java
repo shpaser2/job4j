@@ -26,4 +26,14 @@ public class MaxTest {
         assertThat(result, is(2));
 
     }
+
+    /**
+     * Test max method - compare 3 numbers.
+     */
+    @Test
+    public void whenMaxFrom1And2And5Then5() {
+        Max compare = new Max();
+        int result = compare.max(1, 2, 5);
+        assertThat(result, is(5));
+    }
 }

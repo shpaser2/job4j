@@ -10,7 +10,7 @@ package ru.job4j.max;
 public class Max {
 
     /**
-     * Вычисляем расстояние между точками.
+     * Находим большее из двух чисел.
      *
      * @param first  - первое число для сравнения.
      * @param second - второе число дял сравнения.
@@ -18,5 +18,18 @@ public class Max {
      */
     public int max(int first, int second) {
         return (first > second) ? first : second;
+    }
+
+    /**
+     * Находим большее из трех чисел.
+     *
+     * @param first  - первое число для сравнения.
+     * @param second - второе число дял сравнения.
+     * @param third  - третье число дял сравнения.
+     * @return Наибольшее число из first, second, third.
+     */
+    public int max(int first, int second, int third) {
+        int temp = this.max(first, second);
+        return this.max(temp, third);
     }
 }
