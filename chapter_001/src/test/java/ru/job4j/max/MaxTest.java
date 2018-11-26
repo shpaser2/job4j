@@ -28,6 +28,18 @@ public class MaxTest {
     }
 
     /**
+     * Test max method - compare 2 numbers.
+     */
+    @Test
+    public void whenMaxFrom3And2Then2() {
+        int first = 3;
+        int second = 2;
+        Max compare = new Max();
+        int result = compare.max(first, second);
+        assertThat(result, is(3));
+
+    }
+    /**
      * Test max method - compare 3 numbers.
      */
     @Test

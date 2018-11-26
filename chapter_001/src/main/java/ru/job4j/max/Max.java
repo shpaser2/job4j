@@ -17,7 +17,7 @@ public class Max {
      * @return Наибольшее число из first и second.
      */
     public int max(int first, int second) {
-        return (first > second) ? first : second;
+        return first > second ? first : second;
     }
 
     /**
