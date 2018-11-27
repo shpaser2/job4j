@@ -17,12 +17,11 @@ public class Factorial {
      */
     public int calc(int n) {
         int factorial = 1;
-        if (n == 0) return factorial;
-        else if (n <= 12) {
+        if ((n <= 12) && (n > 0)) {
             for (int index = 1; index <= n; index++) {
                 factorial *= index;
             }
-            return factorial;
-        } else return -1;
+        } else if ((n < 0) || (n > 12)) factorial = -1;
+        return factorial;
     }
 }
