@@ -28,7 +28,10 @@ public class ArrayChar {
         char[] value = prefix.toCharArray();
         int arrayLength = value.length - 1;
         for (int index = 0; index <= arrayLength; index++) {
-            if (value[index] != this.data[index]) result = false;
+            if (value[index] != this.data[index]) {
+                result = false;
+                break;
+            }
         }
         return result;
     }

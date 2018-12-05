@@ -17,7 +17,10 @@ public class Check {
         int arrayLength = input.length - 1;
         boolean result = true;
         for (int index = 1; index <= arrayLength; index++) {
-            if (input[index] != input[index - 1]) result = false;
+            if (input[index] != input[index - 1]) {
+                result = false;
+                break;
+            }
         }
         return result;
     }

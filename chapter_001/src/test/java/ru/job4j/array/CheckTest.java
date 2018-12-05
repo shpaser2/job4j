@@ -45,7 +45,7 @@ public class CheckTest {
         boolean result = check.mono(input);
         assertThat(result, is(false));
     }
-    
+
     /**
      *
      */
