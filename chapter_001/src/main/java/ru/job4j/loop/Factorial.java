@@ -21,7 +21,9 @@ public class Factorial {
             for (int index = 1; index <= n; index++) {
                 factorial *= index;
             }
-        } else if ((n < 0) || (n > 12)) factorial = -1;
+        } else if ((n < 0) || (n > 12)) {
+            factorial = -1;
+        }
         return factorial;
     }
 }
