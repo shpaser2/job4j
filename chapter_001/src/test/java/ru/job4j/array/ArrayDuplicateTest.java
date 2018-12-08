@@ -20,7 +20,31 @@ public class ArrayDuplicateTest {
         ArrayDuplicate arrayDuplicate = new ArrayDuplicate();
         String[] input = new String[]{"May", "Oleg", "Ivan", "Ivan", "Olga", "May"};
         String[] result = arrayDuplicate.remove(input);
-        String[] expect = new String[]{"May", "Oleg", "Ivan", "Olga"};
+        String[] expect = new String[]{"Olga", "May", "Ivan", "Oleg"};
+        assertThat(result, is(expect));
+    }
+
+    /**
+     * тест, проверяющий удаление дубликатов строк из массива строк.
+     */
+    @Test
+    public void whenRemoveManyDuplicatesThenArrayWithoutDuplicate() {
+        ArrayDuplicate arrayDuplicate = new ArrayDuplicate();
+        String[] input = new String[]{"1", "1", "1"};
+        String[] result = arrayDuplicate.remove(input);
+        String[] expect = new String[]{"1"};
+        assertThat(result, is(expect));
+    }
+
+    /**
+     * тест, проверяющий удаление дубликатов строк из массива строк.
+     */
+    @Test
+    public void whenRemoveDifferentDuplicatesThenArrayWithoutDuplicate() {
+        ArrayDuplicate arrayDuplicate = new ArrayDuplicate();
+        String[] input = new String[]{"2", "1", "1", "2", "1", "2"};
+        String[] result = arrayDuplicate.remove(input);
+        String[] expect = new String[]{"1", "2"};
         assertThat(result, is(expect));
     }
 }
