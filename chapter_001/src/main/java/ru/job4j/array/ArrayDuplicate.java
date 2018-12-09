@@ -17,10 +17,16 @@ public class ArrayDuplicate {
      * @return array without duplicates of elements.
      */
     public String[] remove(String[] array) {
-        HashSet<String> hashSet = new HashSet<>();
-        for (int index = 0; index < array.length - 1; index++) {
-            hashSet.add(array[index]);
+        int unique = array.length;
+        for (int out = 0; out < unique; out++) {
+            for (int in = out + 1; in < unique; in++) {
+                if (array[out].equals(array[in])) {
+                    array[in] = array[unique - 1];
+                    unique--;
+                    in--;
+                }
+            }
         }
-        return hashSet.toArray(new String[hashSet.size()]);
+        return Arrays.copyOf(array, unique);
     }
 }
