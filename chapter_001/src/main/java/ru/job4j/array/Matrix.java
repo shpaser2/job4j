@@ -9,15 +9,16 @@ package ru.job4j.array;
 public class Matrix {
 
     /**
-     * Create multiplication table (square) with selected size.
-     * @param size maximal number for multiplication .
+     * Create square multiplication table with selected size.
+     *
+     * @param size maximal number for multiplication.
      * @return multiplication  table.
      */
     public int[][] multiple(int size) {
         int[][] table = new int[size][size];
-        for (int rowIndex = 0; rowIndex < size; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < size; columnIndex++) {
-                table[rowIndex][columnIndex] = (rowIndex + 1) * (columnIndex + 1);
+        for (int row = 0; row < size; row++) {
+            for (int column = 0; column < size; column++) {
+                table[row][column] = (row + 1) * (column + 1);
             }
         }
         return table;
