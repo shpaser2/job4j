@@ -15,15 +15,29 @@ public class Logic {
     private final Figure[] figures;
     private int index = 0;
 
+    /**
+     * Constructor with fields initialization
+     * @param size of table
+     */
     public Logic(int size) {
         this.size = size;
         this.figures = new Figure[size * size];
     }
 
+    /**
+     *
+     * @param figure
+     */
     public void add(Figure figure) {
         this.figures[this.index++] = figure;
     }
 
+    /**
+     *
+     * @param source
+     * @param dest
+     * @return
+     */
     public boolean move(Cell source, Cell dest) {
         boolean rst = false;
         int index = this.findBy(source);
@@ -69,29 +83,32 @@ public class Logic {
     public boolean isWin() {
         int[][] table = this.convert();
         boolean result = false;
-        int counter;
-        for (int row = 0; row < table.length; row++) {
-            counter = 0;
-            for (int column = 0; column < table.length; column++) {
-                if (table[row][column] == 1) {
-                    counter++;
+        int column = 0, row = 0;
+
+        for (; column < (this.size - 1); column++) {
+            if (table[row][column] == 1) {
+                for (; row < (this.size - 1); row++) {
+                    if (table[row][column] == 0) {
+                        break;
+                    }
                 }
-                if (counter == 5) {
+                if (row == (this.size - 1)) {
                     result = true;
-                    break;
                 }
             }
         }
+        row = 0;
+        column = 0;
         if (!result) {
-            for (int column = 0; column < table.length; column++) {
-                counter = 0;
-                for (int row = 0; row < table.length; row++) {
-                    if (table[row][column] == 1) {
-                        counter++;
+            for (; row < (this.size - 1); row++) {
+                if (table[row][column] == 1) {
+                    for (; column < (this.size - 1); column++) {
+                        if (table[row][column] == 0) {
+                            break;
+                        }
                     }
-                    if (counter == 5) {
+                    if (column == (this.size - 1)) {
                         result = true;
-                        break;
                     }
                 }
             }
