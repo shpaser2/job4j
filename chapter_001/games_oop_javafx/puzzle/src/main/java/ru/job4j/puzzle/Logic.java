@@ -17,6 +17,7 @@ public class Logic {
 
     /**
      * Constructor with fields initialization
+     *
      * @param size of table
      */
     public Logic(int size) {
@@ -25,7 +26,6 @@ public class Logic {
     }
 
     /**
-     *
      * @param figure
      */
     public void add(Figure figure) {
@@ -33,7 +33,6 @@ public class Logic {
     }
 
     /**
-     *
      * @param source
      * @param dest
      * @return
@@ -84,33 +83,24 @@ public class Logic {
         int[][] table = this.convert();
         boolean result = false;
         int column = 0, row = 0;
-
-        for (; column < (this.size - 1); column++) {
-            if (table[row][column] == 1) {
-                for (; row < (this.size - 1); row++) {
-                    if (table[row][column] == 0) {
-                        break;
-                    }
-                }
-                if (row == (this.size - 1)) {
-                    result = true;
-                }
-            }
+        int counter = 0;
+        for (; column < this.size; column++) {
+            if(row == 0) if (table[row][column] == 1) row++;
+            if(row == 1) if (table[row][column] == 1) row++;
+            if(row == 2) if (table[row][column] == 1) row++;
+            if(row == 3) if (table[row][column] == 1) row++;
+            if(row == 4) if (table[row][column] == 1) row++;
+            if(row == this.size){ result = true; break;}
         }
-        row = 0;
-        column = 0;
-        if (!result) {
-            for (; row < (this.size - 1); row++) {
-                if (table[row][column] == 1) {
-                    for (; column < (this.size - 1); column++) {
-                        if (table[row][column] == 0) {
-                            break;
-                        }
-                    }
-                    if (column == (this.size - 1)) {
-                        result = true;
-                    }
-                }
+        if(!result){
+            row = 0; column = 0;
+            for (; row < this.size; row++) {
+                if(column == 0) if (table[row][column] == 1) column++;
+                if(column == 1) if (table[row][column] == 1) column++;
+                if(column == 2) if (table[row][column] == 1) column++;
+                if(column == 3) if (table[row][column] == 1) column++;
+                if(column == 4) if (table[row][column] == 1) column++;
+                if(column == this.size){ result = true; break;}
             }
         }
         return result;
