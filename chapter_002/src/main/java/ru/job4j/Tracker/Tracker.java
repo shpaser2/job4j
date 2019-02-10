@@ -2,6 +2,7 @@ package ru.job4j.Tracker;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -72,6 +73,7 @@ public class Tracker {
             if(this.items[index].getId().equals(id)){
                 System.arraycopy(items, index+1, items, index, items.length - 1);
                 result = true;
+                this.position--;
                 break;
             }
         }
@@ -83,15 +85,7 @@ public class Tracker {
      * @return array Item[] without empty items.
      */
     public Item[] findAll(){
-        Item[] copy = new Item[0];
-        int indexOfCopy = 0;
-        for(int index = 0; index < ((this.items).length - 1); index++ ){
-            if(!(this.items[index].equals(null))){
-                copy[indexOfCopy] = this.items[index];
-                indexOfCopy++;
-            }
-        }
-        return copy;
+        return Arrays.copyOf(this.items, position);
     }
 
     /**
