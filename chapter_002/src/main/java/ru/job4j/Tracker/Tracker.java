@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Random;
 
 /**
+ * Содержит методы для работы с заявками
+ * @author Sergey Shpakovsky
  * @version $Id$
  * @since 0.1
  */
@@ -48,7 +50,7 @@ public class Tracker {
     /**
      * Replace the item cell in the array with selected Id.
      * @param id if item to replace with other data
-     * @param item new data for item, which will be replace
+     * @param item new data for item
      */
     public boolean replace(String id, Item item){
         boolean result = false;
@@ -94,9 +96,9 @@ public class Tracker {
      * @return array with items wich name match key.
      */
     public Item[] findByName(String key){
-        Item[] copy = new Item[0];
+        Item[] copy = new Item[position];
         int indexOfCopy = 0;
-        for(int index = 0; index < (this.items.length - 1); index++ ){
+        for(int index = 0; index < (position - 1); index++ ){
             if(this.items[index].getName().equals(key)){
                 copy[indexOfCopy] = this.items[index];
                 indexOfCopy++;
@@ -112,7 +114,7 @@ public class Tracker {
      */
     public Item findById(String id){
         Item copy = null;
-        for(int index = 0; index < (this.items.length - 1); index++ ){
+        for(int index = 0; index < (position - 1); index++ ){
             if(this.items[index].getId().equals(id)){
                 copy = this.items[index];
                 break;
