@@ -1,4 +1,4 @@
-package ru.job4j.Tracker;
+package ru.job4j.tracker;
 
 /**
  * Class StartUI содержит меню пользователя и методы для работы с хранилищем заявок.
@@ -74,15 +74,15 @@ public class StartUI {
                 //добавление заявки вынесено в отдельный метод.
                 this.createItem();
             } else if (ShowAll.equals(answer)) {
-                this.ShowAllItems();
+                this.showAllItems();
             } else if (EditItem.equals(answer)) {
-                this.EditItem();
+                this.editItem();
             } else if (DeleteItem.equals(answer)) {
-                this.DeleteItem();
+                this.deleteItem();
             } else if (FindById.equals(answer)) {
-                this.FindById();
+                this.findById();
             } else if (FindByName.equals(answer)) {
-                this.FindByName();
+                this.findByName();
             } else if (EXIT.equals(answer)) {
                 exit = true;
             }
@@ -94,7 +94,7 @@ public class StartUI {
      */
     private void createItem() {
         System.out.println("------------ Добавление новой заявки --------------");
-        String name = this.input.ask("Введите имя заявки :");
+        String name = this.input.ask("Введите название заявки :");
         String desc = this.input.ask("Введите описание заявки :");
         Item item = new Item(name, desc);
         this.tracker.add(item);
@@ -104,13 +104,14 @@ public class StartUI {
     /**
      * Метод реализует изменение заявки в хранилище.
      */
-    private void EditItem() {
+    private void editItem() {
         System.out.println("------------ Изменение заявки в хранилище --------------");
         String Id = this.input.ask("Введите Id редактируемой заявки :");
-        Item item = this.tracker.findById(Id);
-        if(!item.equals(null)){
-            item.setName(this.input.ask("Введите новое имя заявки"));
-            item.setDescription(this.input.ask("Введите новое описание заявки"));
+        String name = this.input.ask("Введите новое название редактируемой заявки :");
+        String description = this.input.ask("Введите новое описание редактируемой заявки :");
+        Item item = new Item(name, description);
+        if(this.tracker.replace(Id, item)){
+            this.input.print("Заявка с введенным Id изменена");
         }else{
             this.input.print("Заявки с введенным Id не существует");
         }
@@ -120,12 +121,10 @@ public class StartUI {
     /**
      * Метод реализует удаление заявки в хранилище.
      */
-    private void DeleteItem() {
+    private void deleteItem() {
         System.out.println("------------ Удаление заявки в хранилище --------------");
         String Id = this.input.ask("Введите Id удаляемой заявки :");
-        Item item = this.tracker.findById(Id);
-        if(!item.equals(null)){
-            this.tracker.delete(Id);
+        if(this.tracker.delete(Id)){
             this.input.print("Заявка с введенным Id найдена и удалена");
         }else{
             this.input.print("Заявка с введенным Id не существует");
@@ -136,7 +135,7 @@ public class StartUI {
     /**
      * Метод реализует поиск заявки в хранилище по Id.
      */
-    private void FindById() {
+    private void findById() {
         System.out.println("------------ Поиск заявки в хранилище по id --------------");
         String Id = this.input.ask("Введите Id заявки :");
         Item item = this.tracker.findById(Id);
@@ -152,11 +151,11 @@ public class StartUI {
     /**
      * Метод реализует поиск заявки в хранилище по названию.
      */
-    private void FindByName() {
+    private void findByName() {
         System.out.println("------------ Поиск заявки в хранилище по совпадению названия --------------");
-        String name = this.input.ask("Введите Id заявки :");
+        String name = this.input.ask("Введите название заявки :");
         Item[] items = this.tracker.findByName(name);
-        if(!items.equals(null)){
+        if(items.length > 0){
             this.input.print("Заявки с совпадающим именем найдены");
         }else{
             this.input.print("Заявки с совпадающим именем не найдены");
@@ -167,7 +166,7 @@ public class StartUI {
     /**
      * Метод реализует отображение всех имеющихся заявок в хранилище.
      */
-    private void ShowAllItems() {
+    private void showAllItems() {
         System.out.println("------------ Отображение всех заявок в хранилище --------------");
         Item[] items = this.tracker.findAll();
         for(Item it: items){

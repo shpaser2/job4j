@@ -1,4 +1,4 @@
-package ru.job4j.Tracker;
+package ru.job4j.tracker;
 
 
 import java.text.SimpleDateFormat;
@@ -104,7 +104,7 @@ public class Tracker {
                 indexOfCopy++;
             }
         }
-        return copy;
+        return Arrays.copyOf(copy, indexOfCopy);
     }
 
     /**

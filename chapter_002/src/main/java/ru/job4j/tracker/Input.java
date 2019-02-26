@@ -1,4 +1,4 @@
-package ru.job4j.Tracker;
+package ru.job4j.tracker;
 
 /**
  * interface Input определяет названия методов интерфейса для работы

@@ -1,4 +1,4 @@
-package ru.job4j.Tracker;
+package ru.job4j.tracker;
 
 /**
  * Class Item содержит данные заявки и методы доступа к ним.
