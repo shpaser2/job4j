@@ -20,12 +20,12 @@ public class Item {
     private long number;
     private String id;
 
-    Item(String name, String description){
+    Item(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    Item(String name, String description, long number){
+    Item(String name, String description, long number) {
         this.name = name;
         this.description = description;
         this.number = number;

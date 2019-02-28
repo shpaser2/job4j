@@ -16,27 +16,27 @@ public class StartUI {
     /**
      * Константа меню для добавления новой заявки.
      */
-    private static final String ShowAll = "1";
+    private static final String SHOW_ALL = "1";
 
     /**
      * Константа меню для добавления новой заявки.
      */
-    private static final String EditItem = "2";
+    private static final String EDIT_ITEM = "2";
 
     /**
      * Константа меню для добавления новой заявки.
      */
-    private static final String DeleteItem = "3";
+    private static final String DELETE_ITEM = "3";
 
     /**
      * Константа меню для добавления новой заявки.
      */
-    private static final String FindById = "4";
+    private static final String FIND_BY_ID = "4";
 
     /**
      * Константа меню для добавления новой заявки.
      */
-    private static final String FindByName = "5";
+    private static final String FIND_BY_NAME = "5";
 
     /**
      * Константа для выхода из цикла.
@@ -54,7 +54,8 @@ public class StartUI {
 
     /**
      * Конструтор инициализирующий поля.
-     * @param input ввод данных.
+     *
+     * @param input   ввод данных.
      * @param tracker хранилище заявок.
      */
     public StartUI(Input input, Tracker tracker) {
@@ -73,15 +74,15 @@ public class StartUI {
             if (ADD.equals(answer)) {
                 //добавление заявки вынесено в отдельный метод.
                 this.createItem();
-            } else if (ShowAll.equals(answer)) {
+            } else if (SHOW_ALL.equals(answer)) {
                 this.showAllItems();
-            } else if (EditItem.equals(answer)) {
+            } else if (EDIT_ITEM.equals(answer)) {
                 this.editItem();
-            } else if (DeleteItem.equals(answer)) {
+            } else if (DELETE_ITEM.equals(answer)) {
                 this.deleteItem();
-            } else if (FindById.equals(answer)) {
+            } else if (FIND_BY_ID.equals(answer)) {
                 this.findById();
-            } else if (FindByName.equals(answer)) {
+            } else if (FIND_BY_NAME.equals(answer)) {
                 this.findByName();
             } else if (EXIT.equals(answer)) {
                 exit = true;
@@ -106,13 +107,13 @@ public class StartUI {
      */
     private void editItem() {
         System.out.println("------------ Изменение заявки в хранилище --------------");
-        String Id = this.input.ask("Введите Id редактируемой заявки :");
+        String id = this.input.ask("Введите Id редактируемой заявки :");
         String name = this.input.ask("Введите новое название редактируемой заявки :");
         String description = this.input.ask("Введите новое описание редактируемой заявки :");
         Item item = new Item(name, description);
-        if(this.tracker.replace(Id, item)){
+        if (this.tracker.replace(id, item)) {
             this.input.print("Заявка с введенным Id изменена");
-        }else{
+        } else {
             this.input.print("Заявки с введенным Id не существует");
         }
         System.out.println("------------ Изменение заявки в хранилище завершено --------------");
@@ -123,10 +124,10 @@ public class StartUI {
      */
     private void deleteItem() {
         System.out.println("------------ Удаление заявки в хранилище --------------");
-        String Id = this.input.ask("Введите Id удаляемой заявки :");
-        if(this.tracker.delete(Id)){
+        String id = this.input.ask("Введите Id удаляемой заявки :");
+        if (this.tracker.delete(id)) {
             this.input.print("Заявка с введенным Id найдена и удалена");
-        }else{
+        } else {
             this.input.print("Заявка с введенным Id не существует");
         }
         System.out.println("------------ Удаление заявки в хранилище завершено --------------");
@@ -137,12 +138,12 @@ public class StartUI {
      */
     private void findById() {
         System.out.println("------------ Поиск заявки в хранилище по id --------------");
-        String Id = this.input.ask("Введите Id заявки :");
-        Item item = this.tracker.findById(Id);
-        if(!(item.equals(null))){
-            this.input.print("Заявка с введенным Id найдена");
-        }else{
-            this.input.print("Заявка с введенным Id не существует");
+        String id = this.input.ask("Введите id заявки :");
+        Item item = this.tracker.findById(id);
+        if (!(item.equals(null))) {
+            this.input.print("Заявка с введенным id найдена");
+        } else {
+            this.input.print("Заявка с введенным id не существует");
         }
         System.out.println("------------ Поиск заявки в хранилище по id завершен --------------");
     }
@@ -155,9 +156,9 @@ public class StartUI {
         System.out.println("------------ Поиск заявки в хранилище по совпадению названия --------------");
         String name = this.input.ask("Введите название заявки :");
         Item[] items = this.tracker.findByName(name);
-        if(items.length > 0){
+        if (items.length > 0) {
             this.input.print("Заявки с совпадающим именем найдены");
-        }else{
+        } else {
             this.input.print("Заявки с совпадающим именем не найдены");
         }
         System.out.println("------------ Поиск заявки в хранилище по совпадению названия завершен --------------");
@@ -169,7 +170,7 @@ public class StartUI {
     private void showAllItems() {
         System.out.println("------------ Отображение всех заявок в хранилище --------------");
         Item[] items = this.tracker.findAll();
-        for(Item it: items){
+        for (Item it : items) {
             this.input.print("Название заявки " + it.getName());
             this.input.print("Описание заявки " + it.getDescription());
             this.input.print("Id заявки " + it.getId());
@@ -193,6 +194,7 @@ public class StartUI {
 
     /**
      * Запускт программы.
+     *
      * @param args
      */
     public static void main(String[] args) {
