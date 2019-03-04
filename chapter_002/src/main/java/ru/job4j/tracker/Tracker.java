@@ -46,8 +46,8 @@ public class Tracker {
         int max = 999;
         Random rnd = new Random(System.currentTimeMillis());
         int number = min + rnd.nextInt(max - min + 1);
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        return (timeStamp + String.format(" %d", number));
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+        return (timeStamp + number);
     }
 
     /**
@@ -58,8 +58,8 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < (this.items.length - 1); i++) {
-            if (this.items[i].getId().equals(item.getId())) {
+        for (int i = 0; i < (this.items.length); i++) {
+            if (this.items[i].getId().equals(id)) {
                 items[i] = item;
                 result = true;
                 break;
@@ -122,7 +122,7 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item copy = null;
-        for (int index = 0; index < (position - 1); index++) {
+        for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
                 copy = this.items[index];
                 break;

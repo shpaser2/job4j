@@ -14,27 +14,27 @@ public class StartUI {
     private static final String ADD = "0";
 
     /**
-     * Константа меню для добавления новой заявки.
+     * Константа меню для отображения всех заявок.
      */
     private static final String SHOW_ALL = "1";
 
     /**
-     * Константа меню для добавления новой заявки.
+     * Константа меню для редактирования заявки.
      */
     private static final String EDIT_ITEM = "2";
 
     /**
-     * Константа меню для добавления новой заявки.
+     * Константа меню для удаления заявки.
      */
     private static final String DELETE_ITEM = "3";
 
     /**
-     * Константа меню для добавления новой заявки.
+     * Константа меню для поиска заявки по id.
      */
     private static final String FIND_BY_ID = "4";
 
     /**
-     * Константа меню для добавления новой заявки.
+     * Константа меню для поиска заявки по имени.
      */
     private static final String FIND_BY_NAME = "5";
 
@@ -42,6 +42,7 @@ public class StartUI {
      * Константа для выхода из цикла.
      */
     private static final String EXIT = "6";
+
     /**
      * Получение данных от пользователя.
      */
@@ -72,7 +73,6 @@ public class StartUI {
             this.showMenu();
             String answer = this.input.ask("Введите пункт меню : ");
             if (ADD.equals(answer)) {
-                //добавление заявки вынесено в отдельный метод.
                 this.createItem();
             } else if (SHOW_ALL.equals(answer)) {
                 this.showAllItems();
