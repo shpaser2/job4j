@@ -41,7 +41,7 @@ public class Tracker {
      *
      * @return Уникальный ключ.
      */
-    private String generateId() {
+    public String generateId() {
         int min = 1;
         int max = 999;
         Random rnd = new Random(System.currentTimeMillis());
@@ -58,11 +58,13 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < (this.items.length); i++) {
-            if (this.items[i].getId().equals(id)) {
-                items[i] = item;
-                result = true;
-                break;
+        if (position > 0) {
+            for (int i = 0; i < position; i++) {
+                if (this.items[i].getId().equals(id)) {
+                    items[i] = item;
+                    result = true;
+                    break;
+                }
             }
         }
         return result;
@@ -76,12 +78,14 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int index = 0; index < (this.items.length - 1); index++) {
-            if (this.items[index].getId().equals(id)) {
-                System.arraycopy(items, index + 1, items, index, items.length - 1);
-                result = true;
-                this.position--;
-                break;
+        if (position > 0) {
+            for (int index = 0; index < position; index++) {
+                if (this.items[index].getId().equals(id)) {
+                    System.arraycopy(items, index + 1, items, index, items.length - 1);
+                    result = true;
+                    this.position--;
+                    break;
+                }
             }
         }
         return result;
@@ -105,10 +109,12 @@ public class Tracker {
     public Item[] findByName(String key) {
         Item[] copy = new Item[position];
         int indexOfCopy = 0;
-        for (int index = 0; index < (position - 1); index++) {
-            if (this.items[index].getName().equals(key)) {
-                copy[indexOfCopy] = this.items[index];
-                indexOfCopy++;
+        if (position > 0) {
+            for (int index = 0; index < position; index++) {
+                if (this.items[index].getName().equals(key)) {
+                    copy[indexOfCopy] = this.items[index];
+                    indexOfCopy++;
+                }
             }
         }
         return Arrays.copyOf(copy, indexOfCopy);
@@ -131,6 +137,10 @@ public class Tracker {
         return copy;
     }
 
+
+    public int getPosition() {
+        return position;
+    }
 }
 
 

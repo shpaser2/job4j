@@ -3,16 +3,18 @@ package ru.job4j.tracker;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 /**
  * Тестирует методы StartUI не связанные с выводом на консоль для пользователя
  * с помощью класса StubInput.
+ *
  * @author Sergey Shpakovsky
  * @version 0.1
  * @since 04.03.2019
  */
 public class StartUITest {
+
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();     // создаём Tracker
@@ -48,4 +50,18 @@ public class StartUITest {
         assertThat(tracker.findAll()[0].getName(), is("test name2")); // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
     }
 
+    @Test
+    public void whenReplaceItemWhichNotExistResultIsNotThisItem() {
+        //создаём Tracker
+        Tracker tracker = new Tracker();
+        //создаем заявку не в хранилище
+        Item item = new Item("test name2", "desc2");
+        item.setId(tracker.generateId());
+        //создаём StubInput с последовательностью действий(производим изменение не существующей заявки)
+        Input input = new StubInput(new String[]{"2", item.getId(), "test name", "изменили несуществующую в хранилище заявку", "6"});
+        //создаём StartUI и вызываем метод init()
+        new StartUI(input, tracker).init();
+        //проверяем, что нулевой элемент массива в трекере не содержит имя, введенное при попытке изменении заявки.
+        assertThat(tracker.getPosition(), is(0));
+    }
 }
