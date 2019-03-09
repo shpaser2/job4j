@@ -58,13 +58,11 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        if (position > 0) {
-            for (int i = 0; i < position; i++) {
-                if (this.items[i].getId().equals(id)) {
-                    items[i] = item;
-                    result = true;
-                    break;
-                }
+        for (int i = 0; i < position; i++) {
+            if (this.items[i].getId().equals(id)) {
+                items[i] = item;
+                result = true;
+                break;
             }
         }
         return result;
@@ -78,14 +76,12 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        if (position > 0) {
-            for (int index = 0; index < position; index++) {
-                if (this.items[index].getId().equals(id)) {
-                    System.arraycopy(items, index + 1, items, index, items.length - 1);
-                    result = true;
-                    this.position--;
-                    break;
-                }
+        for (int index = 0; index < position; index++) {
+            if (this.items[index].getId().equals(id)) {
+                System.arraycopy(items, index + 1, items, index, items.length - 1);
+                result = true;
+                this.position--;
+                break;
             }
         }
         return result;
@@ -109,12 +105,10 @@ public class Tracker {
     public Item[] findByName(String key) {
         Item[] copy = new Item[position];
         int indexOfCopy = 0;
-        if (position > 0) {
-            for (int index = 0; index < position; index++) {
-                if (this.items[index].getName().equals(key)) {
-                    copy[indexOfCopy] = this.items[index];
-                    indexOfCopy++;
-                }
+        for (int index = 0; index < position; index++) {
+            if (this.items[index].getName().equals(key)) {
+                copy[indexOfCopy] = this.items[index];
+                indexOfCopy++;
             }
         }
         return Arrays.copyOf(copy, indexOfCopy);
