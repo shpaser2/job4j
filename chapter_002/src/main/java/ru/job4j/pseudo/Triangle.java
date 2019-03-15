@@ -13,9 +13,16 @@ public class Triangle implements Shape {
     public final String draw() {
         StringBuilder pic = new StringBuilder();
         pic.append("+");
+        pic.append(System.lineSeparator());
         pic.append("++");
+        pic.append(System.lineSeparator());
         pic.append("+++");
+        pic.append(System.lineSeparator());
         pic.append("++++");
         return pic.toString();
     }
+
+//    public static void main(String[] args){
+//        System.out.println(new Triangle().draw());
+//    }
 }

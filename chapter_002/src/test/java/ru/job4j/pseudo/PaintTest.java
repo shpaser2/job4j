@@ -40,10 +40,13 @@ public class PaintTest {
         assertThat(
                 this.out.toString(),
                 is(new StringBuilder()
-                        .append("++++")
+                        .append("+++++++")
+                        .append(System.lineSeparator())
                         .append("+     +")
+                        .append(System.lineSeparator())
                         .append("+     +")
-                        .append("++++")
+                        .append(System.lineSeparator())
+                        .append("+++++++")
                         .append(System.lineSeparator())
                         .toString()
                 )
