@@ -140,7 +140,7 @@ public class StartUI {
         System.out.println("------------ Поиск заявки в хранилище по id --------------");
         String id = this.input.ask("Введите id заявки :");
         Item item = this.tracker.findById(id);
-        if (!(item.equals(null))) {
+        if (!(item.equals(null))) { //падает при поиске отсутствуюшего Id и сравнении null с null c java.lang.NullPointerException
             this.input.print("Заявка с введенным id найдена");
         } else {
             this.input.print("Заявка с введенным id не существует");

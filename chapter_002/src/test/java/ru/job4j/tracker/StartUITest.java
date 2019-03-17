@@ -1,6 +1,12 @@
 package ru.job4j.tracker;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -15,12 +21,119 @@ import static org.junit.Assert.*;
  */
 public class StartUITest {
 
+    // поле содержит дефолтный вывод в консоль.
+    private final PrintStream stdout = System.out;
+    // буфер для результата.
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    // стандартная строка отображения меню
+    private final String MenuString = "Меню.\r\n0. Добавить новую заявку\r\n1. Показать все заявки\r\n" +
+            "2. Изменить заявку\r\n3. Удалить заявку\r\n4. Найти заявку по номеру\r\n" +
+            "5. Найти заявки по названию\r\n6. Выйти из программы";
+
+    @Before
+    public void loadOutput() {
+        System.out.println("execute before method");
+        System.setOut(new PrintStream(this.out));
+    }
+
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+        System.out.println("execute after method");
+    }
+
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();     // создаём Tracker
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});   //создаём StubInput с последовательностью действий
         new StartUI(input, tracker).init();     //   создаём StartUI и вызываем метод init()
         assertThat(tracker.findAll()[0].getName(), is("test name")); // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
+    }
+
+    @Test
+    public void checkShowAllForTwoAddedItems() {
+        // создаём Tracker
+        Tracker tracker = new Tracker();
+        //Напрямую добавляем 2 заявки
+        Item item = tracker.add(new Item("test name", "desc"));
+        Item item2 = tracker.add(new Item("test name2", "desc2"));
+        //создаём StubInput с вызовом ShowAllItems и Exit
+        Input input = new ArrayInputSystemOut(new String[]{"1", "6"});
+        //создаём StartUI и вызываем метод init()
+        new StartUI(input, tracker).init();
+        // проверяем, что выведены две завяки.
+        assertThat(this.out.toString(),
+                is(new StringJoiner(
+                        System.lineSeparator(), "",
+                        System.lineSeparator())
+                        .add(MenuString)
+                        .add("------------ Отображение всех заявок в хранилище --------------")
+                        .add("Название заявки " + item.getName())
+                        .add("Описание заявки " + item.getDescription())
+                        .add("Id заявки " + item.getId())
+                        .add("Название заявки " + item2.getName())
+                        .add("Описание заявки " + item2.getDescription())
+                        .add("Id заявки " + item2.getId())
+                        .add("------------ Отображение всех заявок в хранилище завершено --------------")
+                        .add(MenuString)
+                        .toString()
+        ));
+    }
+
+    @Test
+    public void checkFindByIdForTwoAddedItems() {
+        // создаём Tracker
+        Tracker tracker = new Tracker();
+        //Напрямую добавляем заявку
+        Item item = tracker.add(new Item("test name", "desc"));
+        //создаём StubInput с вызовом FindById и Exit
+        Input input = new ArrayInputSystemOut(new String[]{"4", item.getId(), "4", tracker.generateId(), "6"});
+        //создаём StartUI и вызываем метод init()
+        new StartUI(input, tracker).init();
+        // проверяем, что выведены оба случая поиска завяки.
+        assertThat(this.out.toString(),
+                is(new StringJoiner(
+                        System.lineSeparator(), "",
+                        System.lineSeparator())
+                        .add(MenuString)
+                        .add("------------ Поиск заявки в хранилище по id --------------")
+                        .add("Заявка с введенным id найдена")
+                        .add("------------ Поиск заявки в хранилище по id завершен --------------")
+                        .add(MenuString)
+                        .add("------------ Поиск заявки в хранилище по id --------------")
+                        .add("Заявка с введенным id не существует")
+                        .add("------------ Поиск заявки в хранилище по id завершен --------------")
+                        .add(MenuString)
+                        .toString()
+                ));
+    }
+
+    @Test
+    public void checkFindByNameForTwoAddedItems() {
+        // создаём Tracker
+        Tracker tracker = new Tracker();
+        //Напрямую добавляем заявку
+        Item item = tracker.add(new Item("test name", "desc"));
+        //создаём StubInput с вызовом FindById и Exit
+        Input input = new ArrayInputSystemOut(new String[]{"5", item.getName(), "5", "test name2", "6"});
+        //создаём StartUI и вызываем метод init()
+        new StartUI(input, tracker).init();
+        // проверяем, что выведены оба случая поиска завяки.
+        assertThat(this.out.toString(),
+                is(new StringJoiner(
+                        System.lineSeparator(), "",
+                        System.lineSeparator())
+                        .add(MenuString)
+                        .add("------------ Поиск заявки в хранилище по совпадению названия --------------")
+                        .add("Заявки с совпадающим именем найдены")
+                        .add("------------ Поиск заявки в хранилище по совпадению названия завершен --------------")
+                        .add(MenuString)
+                        .add("------------ Поиск заявки в хранилище по совпадению названия --------------")
+                        .add("Заявки с совпадающим именем не найдены")
+                        .add("------------ Поиск заявки в хранилище по совпадению названия завершен --------------")
+                        .add(MenuString)
+                        .toString()
+                ));
     }
 
     @Test
