@@ -68,26 +68,35 @@ public class StartUI {
      * Основой цикл программы.
      */
     public void init() {
-        boolean exit = false;
-        while (!exit) {
-            this.showMenu();
-            String answer = this.input.ask("Введите пункт меню : ");
-            if (ADD.equals(answer)) {
-                this.createItem();
-            } else if (SHOW_ALL.equals(answer)) {
-                this.showAllItems();
-            } else if (EDIT_ITEM.equals(answer)) {
-                this.editItem();
-            } else if (DELETE_ITEM.equals(answer)) {
-                this.deleteItem();
-            } else if (FIND_BY_ID.equals(answer)) {
-                this.findById();
-            } else if (FIND_BY_NAME.equals(answer)) {
-                this.findByName();
-            } else if (EXIT.equals(answer)) {
-                exit = true;
-            }
-        }
+//        boolean exit = false;
+//        while (!exit) {
+//            this.showMenu();
+//            String answer = this.input.ask("Введите пункт меню : ");
+//            if (ADD.equals(answer)) {
+//                this.createItem();
+//            } else if (SHOW_ALL.equals(answer)) {
+//                this.showAllItems();
+//            } else if (EDIT_ITEM.equals(answer)) {
+//                this.editItem();
+//            } else if (DELETE_ITEM.equals(answer)) {
+//                this.deleteItem();
+//            } else if (FIND_BY_ID.equals(answer)) {
+//                this.findById();
+//            } else if (FIND_BY_NAME.equals(answer)) {
+//                this.findByName();
+//            } else if (EXIT.equals(answer)) {
+//                exit = true;
+//            }
+//        }
+        Tracker tracker = new Tracker();
+        MenuTracker menu = new MenuTracker(this.input, tracker);
+        menu.fillActions();
+
+        do{
+            menu.show();
+            int key = Integer.valueOf(input.ask("Select: "));
+            menu.select(key);
+        }while (!"y".equals(this.input.ask("Exit? y")));
     }
 
     /**
