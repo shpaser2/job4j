@@ -9,41 +9,6 @@ package ru.job4j.tracker;
  */
 public class StartUI {
     /**
-     * Константа меню для добавления новой заявки.
-     */
-    private static final String ADD = "0";
-
-    /**
-     * Константа меню для отображения всех заявок.
-     */
-    private static final String SHOW_ALL = "1";
-
-    /**
-     * Константа меню для редактирования заявки.
-     */
-    private static final String EDIT_ITEM = "2";
-
-    /**
-     * Константа меню для удаления заявки.
-     */
-    private static final String DELETE_ITEM = "3";
-
-    /**
-     * Константа меню для поиска заявки по id.
-     */
-    private static final String FIND_BY_ID = "4";
-
-    /**
-     * Константа меню для поиска заявки по имени.
-     */
-    private static final String FIND_BY_NAME = "5";
-
-    /**
-     * Константа для выхода из цикла.
-     */
-    private static final String EXIT = "6";
-
-    /**
      * Получение данных от пользователя.
      */
     private final Input input;
@@ -68,34 +33,11 @@ public class StartUI {
      * Основой цикл программы.
      */
     public void init() {
-//        boolean exit = false;
-//        while (!exit) {
-//            this.showMenu();
-//            String answer = this.input.ask("Введите пункт меню : ");
-//            if (ADD.equals(answer)) {
-//                this.createItem();
-//            } else if (SHOW_ALL.equals(answer)) {
-//                this.showAllItems();
-//            } else if (EDIT_ITEM.equals(answer)) {
-//                this.editItem();
-//            } else if (DELETE_ITEM.equals(answer)) {
-//                this.deleteItem();
-//            } else if (FIND_BY_ID.equals(answer)) {
-//                this.findById();
-//            } else if (FIND_BY_NAME.equals(answer)) {
-//                this.findByName();
-//            } else if (EXIT.equals(answer)) {
-//                exit = true;
-//            }
-//        }
-        Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker(this.input, tracker);
         menu.fillActions();
-
         do{
             menu.show();
-            int key = Integer.valueOf(input.ask("Select: "));
-            menu.select(key);
+            menu.select(Integer.valueOf(input.ask("Select: ")));
         }while (!"y".equals(this.input.ask("Exit? y")));
     }
 
