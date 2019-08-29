@@ -60,14 +60,14 @@ public class MenuTracker {
     /**
      * Метод заполняет массив.
      */
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions.add(new AddItem());
         this.actions.add(new ShowItems());
         this.actions.add(new UpdateItem());
         this.actions.add(new DeleteItem());
         this.actions.add(new FindItemById());
         this.actions.add(new FindItemsByName());
-        this.actions.add(new ExitProgram());
+        this.actions.add(new ExitProgram(ui));
     }
     
     public void select(int key){
@@ -228,17 +228,24 @@ public class MenuTracker {
     }
 
     private class ExitProgram implements UserAction {
+        private final StartUI ui;
+
+        private ExitProgram(StartUI ui) {
+            this.ui = ui;
+        }
+
         @Override
         public int key() { return EXIT; }
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("Выход из программы пока по \"Exit? y\". ");
+            System.out.println("Выход из программы. ");
+            this.ui.stop();
         }
 
         @Override
         public String info() {
-            return String.format("%s. %s", this.key(), "Выход из программы пока по \"Exit? y\". ");
+            return String.format("%s. %s", this.key(), "Выход из программы. ");
         }
     }
 }
