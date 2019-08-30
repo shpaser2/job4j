@@ -27,12 +27,18 @@ public class StartUITest {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     // стандартная строка отображения меню
     private final String MenuString = "0. Добавление новой заявки. " +
-            "\\r\\n1. Отображение всех заявок в хранилище. " +
-            "\\r\\n2. Изменение заявки в хранилище. " +
-            "\\r\\n3. Удаление заявки в хранилище. " +
-            "\\r\\n4. Поиск заявки в хранилище по id. " +
-            "\\r\\n5. Поиск заявки в хранилище по совпадению названия. " +
-            "\\r\\n6. Выход из программы. ";
+            System.lineSeparator() +
+            "1. Отображение всех заявок в хранилище. " +
+            System.lineSeparator() +
+            "2. Изменение заявки в хранилище. " +
+            System.lineSeparator() +
+            "3. Удаление заявки в хранилище. " +
+            System.lineSeparator() +
+            "4. Поиск заявки в хранилище по id. " +
+            System.lineSeparator() +
+            "5. Поиск заявки в хранилище по совпадению названия. " +
+            System.lineSeparator() +
+            "6. Выход из программы. ";
 
     @Before
     public void loadOutput() {
