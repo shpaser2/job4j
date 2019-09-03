@@ -8,6 +8,7 @@ package ru.job4j.tracker;
  * @since 20.02.2019
  */
 public class StartUI {
+    private int[] ranges = new int[] {0, 1, 2, 3, 4, 5, 6};
 
     private boolean working = true;
 
@@ -40,7 +41,7 @@ public class StartUI {
         menu.fillActions(this);
         do{
             menu.show();
-            menu.select(Integer.valueOf(input.ask("Select: ")));
+            menu.select(input.ask("Select: ", ranges));
         }while (this.working);
     }
 
@@ -54,6 +55,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }

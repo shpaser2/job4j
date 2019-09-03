@@ -10,7 +10,7 @@ public class StubInput implements Input {
      * desc - описание заявки
      * 6 - выйти из трекера.
      */
-    private final String[] value;
+    private final String[] answers;
 
     /**
      * Поле считает количество вызовов метода ask.
@@ -18,8 +18,8 @@ public class StubInput implements Input {
      */
     private int position;
 
-    public StubInput(final String[] value) {
-        this.value = value;
+    public StubInput(final String[] answers) {
+        this.answers = answers;
     }
 
     /**
@@ -31,7 +31,35 @@ public class StubInput implements Input {
      */
     @Override
     public String ask(String question) {
-        return this.value[this.position++];
+        return this.answers[this.position++];
+    }
+
+    @Override
+    public int ask(String question, int[] range) {
+        boolean invalid = true;
+        int value = -1;
+        do {
+            try {
+                value = Integer.valueOf(this.ask(question));
+                boolean exist = false;
+                for (int menuValue : range){
+                    if(menuValue == value){
+                        exist = true;
+                        break;
+                    }
+                }
+                if(!exist){
+                    throw new MenuOutException("Out of menu range. ");
+                }
+                invalid = false;
+            } catch (MenuOutException moe) {
+                //moe.printStackTrace();
+                System.out.println("Please select key from menu. ");
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please enter validate data again.");
+            }
+        }while(invalid);
+        return value;
     }
 
     @Override

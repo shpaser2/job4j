@@ -190,4 +190,17 @@ public class StartUITest {
         //проверяем, что нулевой элемент массива в трекере не содержит имя, введенное при попытке изменении заявки.
         assertThat(tracker.getPosition(), is(0));
     }
+
+    @Test
+    public void whenEnterWrongMenuKeyProgramContinuesRun(){
+        // создаём Tracker
+        Tracker tracker = new Tracker();
+        //Напрямую добавляем заявку
+        Item item = tracker.add(new Item("test name", "desc"));
+        //создаём StubInput с последовательностью действий(производим удаление заявки и запись новой)
+        Input input = new StubInput(new String[]{"99", "d", "3", item.getId(), "0", "test name2", "удалили первую заявку", "6"});
+        new StartUI(input, tracker).init();     //   создаём StartUI и вызываем метод init()
+        // проверяем, что нулевой элемент массива в трекере содержит имя, добавленное вторым в хранилище заявок.
+        assertThat(tracker.findAll()[0].getName(), is("test name2")); // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
+    }
 }
