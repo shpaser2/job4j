@@ -36,29 +36,18 @@ public class StubInput implements Input {
 
     @Override
     public int ask(String question, int[] range) {
-        boolean invalid = true;
         int value = -1;
-        do {
-            try {
-                value = Integer.valueOf(this.ask(question));
-                boolean exist = false;
-                for (int menuValue : range){
-                    if(menuValue == value){
-                        exist = true;
-                        break;
-                    }
-                }
-                if(!exist){
-                    throw new MenuOutException("Out of menu range. ");
-                }
-                invalid = false;
-            } catch (MenuOutException moe) {
-                //moe.printStackTrace();
-                System.out.println("Please select key from menu. ");
-            } catch (NumberFormatException nfe) {
-                System.out.println("Please enter validate data again.");
+        value = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int menuValue : range){
+            if(menuValue == value){
+                exist = true;
+                break;
             }
-        }while(invalid);
+        }
+        if(!exist){
+            throw new MenuOutException("Out of menu range. ");
+        }
         return value;
     }
 
