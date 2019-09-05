@@ -3,6 +3,13 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Внутренние классы меню трекера.
+ *
+ * @author Sergey Shpakovsky
+ * @version 0.3
+ * @since 20.02.2019
+ */
 public class MenuTracker {
     /**
      * Константа меню для добавления новой заявки.

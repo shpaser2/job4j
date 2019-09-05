@@ -1,5 +1,12 @@
 package ru.job4j.tracker;
 
+/**
+ * Интерфейс для внутренних классов, составляющих меню трекера.
+ *
+ * @author Sergey Shpakovsky
+ * @version 0.1
+ * @since 03.09.2019
+ */
 public interface UserAction {
 
     /**
