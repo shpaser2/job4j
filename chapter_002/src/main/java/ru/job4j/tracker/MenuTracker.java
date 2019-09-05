@@ -7,7 +7,7 @@ public class MenuTracker {
     /**
      * Константа меню для добавления новой заявки.
      */
-    private static final int ADD = 0;
+    private static final int  ADD = 0;
 
     /**
      * Константа меню для отображения всех заявок.
@@ -61,13 +61,15 @@ public class MenuTracker {
      * Метод заполняет массив.
      */
     public void fillActions(StartUI ui) {
-        this.actions.add(new AddItem());
-        this.actions.add(new ShowItems());
-        this.actions.add(new UpdateItem());
-        this.actions.add(new DeleteItem());
-        this.actions.add(new FindItemById());
-        this.actions.add(new FindItemsByName());
-        this.actions.add(new ExitProgram(ui));
+        this.actions.add(new AddItem(ADD, "Добавление новой заявки. "));
+        this.actions.add(new ShowItems(SHOW_ALL, "Отображение всех заявок в хранилище. "));
+        this.actions.add(new UpdateItem(EDIT_ITEM, "Изменение заявки в хранилище. "));
+        this.actions.add(new DeleteItem(DELETE_ITEM, "Удаление заявки в хранилище. "));
+        this.actions.add(new FindItemById(FIND_BY_ID, "Поиск заявки в хранилище по id. "));
+        this.actions.add(new FindItemsByName(FIND_BY_NAME, "Поиск заявки в хранилище по совпадению названия. "));
+        ExitProgram exitProgram = new ExitProgram(EXIT, "Выход из программы. ");
+        exitProgram.setUi(ui);
+        this.actions.add(exitProgram);
     }
     
     public void select(int key){
@@ -82,11 +84,10 @@ public class MenuTracker {
         }
     }
 
-    private class AddItem implements UserAction {
+    private class AddItem extends BaseAction {
 
-        @Override
-        public int key() {
-            return ADD;
+        public AddItem(final int key, final String name){
+            super(key, name);
         }
 
         @Override
@@ -95,18 +96,13 @@ public class MenuTracker {
             String desc = input.ask("Введите описание заявки :");
             tracker.add(new Item(name, desc));
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Добавление новой заявки. ");
-        }
     }
 
 
-    private class UpdateItem implements UserAction {
-        @Override
-        public int key() {
-            return EDIT_ITEM;
+    private class UpdateItem extends BaseAction {
+
+        public UpdateItem(final int key, final String name){
+            super(key, name);
         }
 
         @Override
@@ -123,17 +119,12 @@ public class MenuTracker {
             }
             System.out.println("Изменение заявки в хранилище завершено. ");
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Изменение заявки в хранилище. ");
-        }
     }
 
-    private class ShowItems implements UserAction {
-        @Override
-        public int key() {
-            return SHOW_ALL;
+    private class ShowItems extends BaseAction {
+
+        public ShowItems(final int key, final String name){
+            super(key, name);
         }
 
         @Override
@@ -147,18 +138,13 @@ public class MenuTracker {
             }
             System.out.println("Отображение всех заявок в хранилище завершено. ");
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Отображение всех заявок в хранилище. ");
-        }
     }
 
 
-    private class DeleteItem implements UserAction {
-        @Override
-        public int key() {
-            return DELETE_ITEM;
+    private class DeleteItem extends BaseAction {
+
+        public DeleteItem (int key, String name){
+            super(key, name);
         }
 
         @Override
@@ -172,17 +158,12 @@ public class MenuTracker {
             }
             System.out.println("Удаление заявки в хранилище завершено. ");
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Удаление заявки в хранилище. ");
-        }
     }
 
-    private class FindItemById implements UserAction {
-        @Override
-        public int key() {
-            return FIND_BY_ID;
+    private class FindItemById extends BaseAction {
+
+        public FindItemById (int key, String name){
+            super(key, name);
         }
 
         @Override
@@ -197,16 +178,13 @@ public class MenuTracker {
             }
             System.out.println("Поиск заявки в хранилище по id завершен. ");
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Поиск заявки в хранилище по id. ");
-        }
     }
 
-    private class FindItemsByName implements UserAction {
-        @Override
-        public int key() { return FIND_BY_NAME; }
+    private class FindItemsByName extends BaseAction {
+
+        public FindItemsByName (int key, String name){
+            super(key, name);
+        }
 
         @Override
         public void execute(Input input, Tracker tracker) {
@@ -220,32 +198,23 @@ public class MenuTracker {
             }
             System.out.println("Поиск заявки в хранилище по совпадению названия завершен. ");
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Поиск заявки в хранилище по совпадению названия. ");
-        }
     }
 
-    private class ExitProgram implements UserAction {
-        private final StartUI ui;
+    private class ExitProgram extends BaseAction {
+        private StartUI ui;
 
-        private ExitProgram(StartUI ui) {
+        public void setUi(final StartUI ui){
             this.ui = ui;
         }
 
-        @Override
-        public int key() { return EXIT; }
+        public ExitProgram(int key, String name) {
+            super(key, name);
+        }
 
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("Выход из программы. ");
             this.ui.stop();
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Выход из программы. ");
         }
     }
 }

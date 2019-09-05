@@ -34,6 +34,7 @@ public class StubInput implements Input {
         return this.answers[this.position++];
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public int ask(String question, int[] range) {
         int value = -1;
